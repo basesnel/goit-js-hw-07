@@ -5,6 +5,7 @@ const gallery = document.querySelector(".gallery");
 let imgSource = "";
 let instance;
 
+// Render gallery items (I method).
 gallery.insertAdjacentHTML(
   "beforeend",
   galleryItems
@@ -26,6 +27,7 @@ gallery.insertAdjacentHTML(
     .join("")
 );
 
+// Render gallery items (II method).
 // const galleryElements = galleryItems.map(
 // ({ preview, original, description }) =>
 // `<div class="gallery__item"><a class="gallery__link"  href="${original}"><img class="gallery__image" src="${preview}" data-source="${original}" alt="${description}" /></a></div>`
@@ -33,6 +35,7 @@ gallery.insertAdjacentHTML(
 //
 // gallery.insertAdjacentHTML("beforeend", galleryElements.join(""));
 
+// Image-modal open click handle.
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
   if (!event.target.classList.contains("gallery__image")) return;
@@ -45,6 +48,7 @@ gallery.addEventListener("click", (event) => {
   instance.show();
 });
 
+// Keyboard event handle.
 document.addEventListener("keydown", ({ code }) => {
   if (code === "Escape" && basicLightbox.visible()) {
     instance.close();
