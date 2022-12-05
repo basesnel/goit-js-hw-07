@@ -41,17 +41,24 @@ gallery.addEventListener("click", (event) => {
   if (!event.target.classList.contains("gallery__image")) return;
 
   imgSource = event.target.dataset.source;
-  instance = basicLightbox.create(`
-    <img src="${imgSource}" width="800" height="600">
-  `);
+  const handleEscape = ({ code }) => {
+    if (code === "Escape" && instance.visible()) instance.close();
+  };
 
+  instance = basicLightbox.create(
+    `<img src="${imgSource}" width="800" height="600">`,
+    {
+      onShow: () => {
+        // console.log("Show modal.");
+        document.addEventListener("keydown", handleEscape);
+      },
+      onClose: () => {
+        // console.log("Close modal.");
+        document.removeEventListener("keydown", handleEscape);
+      },
+    }
+  );
+
+  // console.log(instance);
   instance.show();
-});
-
-// Keyboard event handle.
-document.addEventListener("keydown", ({ code }) => {
-  if (code === "Escape" && basicLightbox.visible()) {
-    instance.close();
-    console.log("close modal");
-  }
 });
